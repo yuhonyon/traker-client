@@ -26,10 +26,11 @@ export default {
       main: true,
       browser: true
     }),
-    commonjs(),
     babel({
       exclude: 'node_modules/**'
     }),
+    commonjs(),
+
     json(),
 
     replace({

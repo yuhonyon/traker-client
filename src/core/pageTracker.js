@@ -1,49 +1,16 @@
 import {send} from "./send"
 
-const PageTracker={
-  startTime:Date.now(),
-  endTime:Date.now(),
-  pageTimes:[],
-  invalidStartTime:Date.now(),
-  invalidEndTime:Date.now(),
-  totalInvalidTime:0,
-  url:location.origin,
-  start(){
-    this.startTime=Date.now();
-    this.pageTimes=[];
-    window.addEventListener('visibilitychange', ()=> {
-      var isHidden = document.hidden;
-      if (isHidden) {
+class PageTracker{
 
-        this.invalidStartTime=Date.now()
-      } else {
+  url=location.origin
 
-        this.invalidEndTime=Date.now();
-        this.totalInvalidTime+=(this.invalidEndTime-this.invalidStartTime);
-      }
-    });
-  },
-  end(){
-    this.change()
+  tracker(pageId=null){
     let data={
-      startTime:this.startTime,
-      endTime:this.endTime,
-      pageTimes:this.pageTimes,
-      invalidTime:this.totalInvalidTime
+      url:this.url,
+      pageId
     }
     send(data)
-
-  },
-  change(){
-    this.pageTimes.push({
-      url:this.url,
-      startTime:this.endTime,
-      invalidTime:this.invalidEndTime-this.invalidStartTime,
-      endTime:Date.now()
-    })
-
-    this.invalidEndTime=this.invalidStartTime=this.endTime=Date.now();
   }
 }
 
-export default PageTracker
+export default new PageTracker()

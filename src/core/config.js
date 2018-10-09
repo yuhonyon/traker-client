@@ -1,12 +1,15 @@
+import {SEND_TYPE,ENVIRONMENT} from '../constant'
 let config={
-  durationTime:false,
-  env:'production',
+  pageTime:false,
+  env:ENVIRONMENT.PRODUCTION,
   projectId:null,
   token:null,
   version:null,
   domain:'',
-  sendType:"cookie",//cookie,live,unload,asyncLive
-  autoSendCookie:true
+  sendType:SEND_TYPE.ASYNC,
+  delayTime:1000,
+  autoSendCookie:true,
+  autoTrakerPage:true,
 }
 
 
